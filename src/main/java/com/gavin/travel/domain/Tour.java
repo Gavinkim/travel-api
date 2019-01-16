@@ -1,18 +1,17 @@
 package com.gavin.travel.domain;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
 /**
  * Created by gavinkim at 2019-01-15
- * The Tour contains all attributes of an Explore California Tour.
  */
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
+@ToString(exclude = "tourPackage")
+@EqualsAndHashCode(exclude = "tourIdx")
 @Entity
 @Table(name = "TOUR")
 public class Tour implements Serializable {
@@ -20,7 +19,7 @@ public class Tour implements Serializable {
     @Id
     @GeneratedValue
     @Column(name = "TOUR_IDX")
-    private Long tour_idx;
+    private Long tourIdx;
 
     @Column(name = "TITLE")
     private String title;
@@ -40,6 +39,9 @@ public class Tour implements Serializable {
     @Column(name = "KEYWORDS")
     private String keywords;
 
+    @Column(name = "DURATION")
+    private String duration;
+
     @Column(name = "DIFFICULTY")
     @Enumerated(EnumType.STRING)
     private Difficulty difficulty;
@@ -52,14 +54,14 @@ public class Tour implements Serializable {
     private TourPackage tourPackage;
 
     @Builder
-
-    public Tour(String title, String description, String blurb, Integer price, String bullets, String keywords, Difficulty difficulty, Region region, TourPackage tourPackage) {
+    public Tour(String title, String description, String blurb, Integer price, String bullets, String keywords, String duration, Difficulty difficulty, Region region, TourPackage tourPackage) {
         this.title = title;
         this.description = description;
         this.blurb = blurb;
         this.price = price;
         this.bullets = bullets;
         this.keywords = keywords;
+        this.duration = duration;
         this.difficulty = difficulty;
         this.region = region;
         this.tourPackage = tourPackage;
